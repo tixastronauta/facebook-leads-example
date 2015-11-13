@@ -1,0 +1,15 @@
+{
+	"name": "tixastronauta/facebook-leads-example",
+	"description": "Complete example on how to grab leads from Facebook Ad Leads",
+	"minimum-stability": "stable",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Tiago Carvalho",
+			"email": "tiago.carvalho@gmail.com"
+		}
+	],
+	"require": {
+		"facebook/php-sdk-v4": "~5.0"
+	}
+}
