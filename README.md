@@ -18,6 +18,7 @@ Make sure:
 
 - You have already created a [Facebook Web App](https://developers.facebook.com/)
 - You already own a [Facebook Page](https://www.facebook.com/pages/create/)
+- You are running at least PHP 5.4
 
 ## Install
 
