@@ -1,6 +1,7 @@
 Facebook Leads Example
 ============================
 
+Full running example on how to retrieve leads from Facebook's Lead Ads
 
 # 1 - Retrieving Facebook Access Tokens and Subscribing App do Page
 
