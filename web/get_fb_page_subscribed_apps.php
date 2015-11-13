@@ -9,14 +9,14 @@ use Facebook\Exceptions\FacebookSDKException;
 require_once __DIR__ . '/../bootstrap.php';
 
 
+$subscribedApps = [];
+$error = false;
+
 $fb = new Facebook([
     'app_id'                => $fb_app_id,
     'app_secret'            => $fb_app_secret,
     'default_graph_version' => $fb_api_version,
 ]);
-
-
-$subscribedApps = [];
 
 try
 {
@@ -46,17 +46,16 @@ try
 } catch (FacebookResponseException $e)
 {
     // When Graph returns an error
-    echo 'Graph returned an error: ' . $e->getMessage();
-    exit;
+    $error = 'Graph returned an error: ' . $e->getMessage();
 } catch (FacebookSDKException $e)
 {
     // When validation fails or other local issues
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-    exit;
+    $error = 'Facebook SDK returned an error: ' . $e->getMessage();
 }
 
 
 header('Content-Type: application/json');
 echo json_encode([
-    'subscribed_apps' => $subscribedApps
+    'subscribed_apps' => $subscribedApps,
+    'error'           => $error
 ]);

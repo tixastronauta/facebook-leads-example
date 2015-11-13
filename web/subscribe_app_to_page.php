@@ -3,12 +3,15 @@
 session_start();
 
 use Facebook\Facebook;
-use Facebook\FacebookRequest;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 
 require_once __DIR__ . '/../bootstrap.php';
 
+
+$subscribedApps = [];
+$body = [];
+$error = null;
 
 $fb = new Facebook([
     'app_id'                => $fb_app_id,
@@ -16,8 +19,6 @@ $fb = new Facebook([
     'default_graph_version' => $fb_api_version,
 ]);
 
-
-$subscribedApps = [];
 
 try
 {
@@ -37,29 +38,25 @@ try
         }
     }
 
-
-    /* subscribed app to this page */
+    /* subscribe app to this page */
+    $body = [];
     $request = $fb->request('POST', "/{$fb_page_id}/subscribed_apps", [], $page_access_token);
     $response = $fb->getClient()->sendRequest($request);
     $body = $response->getDecodedBody();
-    error_log(print_r($body, true));
 
 } catch (FacebookResponseException $e)
 {
     // When Graph returns an error
-    echo 'Graph returned an error: ' . $e->getMessage();
-    exit;
+    $error = 'Graph returned an error: ' . $e->getMessage();
 } catch (FacebookSDKException $e)
 {
     // When validation fails or other local issues
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-    exit;
+    $error = 'Facebook SDK returned an error: ' . $e->getMessage();
 }
 
 
 header('Content-Type: application/json');
 echo json_encode([
-    // @todo
-//    'subscribed_apps' => $subscribedApps
-
+    'data'  => $body,
+    'error' => $error
 ]);
