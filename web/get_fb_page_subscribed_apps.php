@@ -20,7 +20,7 @@ $fb = new Facebook([
 
 try
 {
-    /* get page access token */
+    /* get page access token - this token is required for operations such as publishing as a page */
     $request = $fb->request('GET', "/me/accounts", [], $_SESSION['fb_access_token']);
     $response = $fb->getClient()->sendRequest($request);
     $body = $response->getDecodedBody();
@@ -35,7 +35,6 @@ try
             break;
         }
     }
-
 
     /* get apps subscribed to this page */
     $request = $fb->request('GET', "/{$fb_page_id}/subscribed_apps", [], $page_access_token);
@@ -57,5 +56,6 @@ try
 header('Content-Type: application/json');
 echo json_encode([
     'subscribed_apps' => $subscribedApps,
+    'page_access_token' => $page_access_token,
     'error'           => $error
 ]);

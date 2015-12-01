@@ -12,6 +12,7 @@
     <li id="step1">NOT OK: <a href="#" onClick="logInWithFacebook()">Log In with the JavaScript SDK</a></li>
     <li id="step2">NOT OK: You do not have an Access Token</li>
     <li id="step3">NOT OK: Complete steps above in order to subscribe App <?php echo $fb_app_id; ?> to Page <?php echo $fb_page_id; ?></li>
+    <li id="step4">NOT OK: Complete steps above in order to get Page Access Token</li>
 </ol>
 
 <script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js"></script>
@@ -67,6 +68,13 @@
                     } else {
                         $("#step3").html("OK: App <?php echo $fb_app_id; ?> is subscribed to Page <?php echo $fb_page_id; ?>");
                     }
+
+                    if (response.page_access_token !== undefined)
+                    {
+                        $("#step4").html("OK: Page Access Token: " + response.page_access_token);
+                    }
+
+
                 }
             }
         });
@@ -90,7 +98,7 @@
             } else {
                 $("#step1").html('NOT OK: User cancelled login or did not fully authorize.');
             }
-        }, {scope: 'manage_pages'});
+        }, {scope: 'manage_pages,publish_pages'});
         return false;
     };
     window.fbAsyncInit = function () {
