@@ -41,7 +41,7 @@
             url: "get_fb_access_token.php",
             type: "POST",
             success: function (response) {
-                console.log(response);
+                console.log("get_fb_access_token response", response);
                 $("#step2").html("OK: Access Token: " + response.access_token);
             }
         });
@@ -52,7 +52,7 @@
             url: "get_fb_page_subscribed_apps.php",
             type: "POST",
             success: function (response) {
-                console.log(response);
+                console.log("get_fb_page_subscribed_apps response", response);
                 if (0 == response.subscribed_apps.length) {
                     $("#step3").html("NOT OK: <a href=\"#\" id=\"btn_subscribe_app\">Subscribe App <?php echo $fb_app_id; ?> to Page <?php echo $fb_page_id; ?></a>");
                 } else {
@@ -85,7 +85,7 @@
             url: "subscribe_app_to_page.php",
             type: "POST",
             success: function (response) {
-                console.log(response);
+                console.log("subscribe_app_to_page response", response);
                 getSubscribedApps();
             }
         });

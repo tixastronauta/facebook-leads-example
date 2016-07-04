@@ -24,9 +24,11 @@ $helper = $fb->getJavaScriptHelper();
 try
 {
     $shortLivedTokenObject = $helper->getAccessToken(); /* this token expires */
+    error_log("\$shortLivedTokenObject: {$shortLivedTokenObject}");
     $accessTokenObject = $client->getLongLivedAccessToken($shortLivedTokenObject); /* this is a never-expiring token - it should NEVER be exposed on client side */
 
     $accessToken = $accessTokenObject->getValue();
+    error_log("\$accessToken: {$accessToken}");
 
     $_SESSION['fb_access_token'] = $accessToken;
 } catch (FacebookResponseException $e)
