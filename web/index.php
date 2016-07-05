@@ -98,7 +98,7 @@
             } else {
                 $("#step1").html('NOT OK: User cancelled login or did not fully authorize.');
             }
-        }, {scope: 'manage_pages,publish_pages'});
+        }, {scope: '<?php echo $fb_scope; ?>'});
         return false;
     };
     window.fbAsyncInit = function () {
